@@ -11,22 +11,21 @@ import CoreData
 
 class DataController {
     
-    //MARK: Properties
+    let persistentContainer:NSPersistentContainer
     
-    let persistantContainer:NSPersistentContainer
-    
-    var viewContext:NSManagedObjectContext{
-        return persistantContainer.viewContext
-    }
-    let backgroundContext: NSManagedObjectContext!
-    
-    //MARK: Initializer
-    init(modelName: String) {
-        persistantContainer = NSPersistentContainer(name: modelName)
-        backgroundContext = persistantContainer.newBackgroundContext()
+    var viewContext:NSManagedObjectContext {
+        return persistentContainer.viewContext
     }
     
-    func configureContexts(){
+    let backgroundContext:NSManagedObjectContext!
+    
+    init(modelName:String) {
+        persistentContainer = NSPersistentContainer(name: modelName)
+        
+        backgroundContext = persistentContainer.newBackgroundContext()
+    }
+    
+    func configureContexts() {
         viewContext.automaticallyMergesChangesFromParent = true
         backgroundContext.automaticallyMergesChangesFromParent = true
         
@@ -35,7 +34,7 @@ class DataController {
     }
     
     func load(completion: (() -> Void)? = nil) {
-        persistantContainer.loadPersistentStores { storeDescription, error in
+        persistentContainer.loadPersistentStores { storeDescription, error in
             guard error == nil else {
                 fatalError(error!.localizedDescription)
             }

@@ -114,7 +114,7 @@ class ViewController: UIViewController {
         }
         
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-            // TODO: by pressing on a pin go to photosListViewController
+            print("Map Clicked")
             mapView.deselectAnnotation(view.annotation! , animated: true)
             let pin: Pin = view.annotation as! Pin
             let photosListVC = storyboard?.instantiateViewController(withIdentifier: "PhotosListViewController") as! PhotosListViewController;
